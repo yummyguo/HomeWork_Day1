@@ -1,0 +1,43 @@
+﻿
+@model MyHomeWork.Models.ViewModels.AssetViewModel
+
+@{
+    Layout = "~/Views/Shared/_myLayout.cshtml";
+    ViewBag.Title = "我的記帳本";
+}
+@Html.ValidationSummary()
+@{ 
+    RouteValueDictionary routeValues = ViewContext.RouteData.Values;
+    routeValues.Add("rid", @ViewBag.id ==null?0:ViewBag.id);
+}
+@using (Html.BeginForm("MyForm", "Home", routeValues,FormMethod.Post))
+{
+    <div class="container">
+        @Html.ActionLink("Back to List", "Index", new { @class = "btn" })
+        <div class="input-group"> 
+            @if (Model == null) {
+                <input type="hidden" name="IsEdit" value="false" />
+            } else { @Html.HiddenFor(s => s.IsEdit)}
+
+            <span class="input-group-addon">類別</span>
+            @Html.DropDownList("Type", ViewBag.ddlType as IEnumerable<SelectListItem>,new { @class= "form-control" })
+            <span class="input-group-addon glyphicon glyphicon-arrow-down"></span>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">日期</span>
+            @Html.TextBoxFor(s => s.Date, new { @class = "form-control" })
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">金額</span>
+            @Html.TextBoxFor(s => s.Amt, new { @class = "form-control" })
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">備註</span>
+            @Html.TextBoxFor(s => s.Remark, new { @class = "form-control" })
+        </div>
+        <input type="submit" class="btn btn-default" />
+     
+    </div>
+}
