@@ -63,6 +63,7 @@ namespace MyHomeWork.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            //測試Commit
             if (TempData["Model"] != null)
             {
                 var model = TempData["Model"] as AssetViewModel;
